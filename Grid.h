@@ -17,17 +17,23 @@ class Grid {
         static int kierros_laskuri;
         int vaikeus_aste;
     public:
+        //CONSTRUCTOR JA DESTRUCTOR
         Grid();
         ~Grid();
+
+        //kierros_laskuri MUUTTUJAN FUNKTIOT
         static int get_kierros_laskuri() {return kierros_laskuri;}
         void korota_kierros_laskuria() {kierros_laskuri++;}
+
+        //MATRIISIN PÄIVITTÄMINEN JA TULOSTUS FUNKTIOT
         void display_grid() const;
         bool update_grid(const int x, const int y, Pelaajat *pelaaja);
 
+        //vaikeus_aste GETTERIT JA SETTERIT
         void set_vaikeus_aste(const int vaikeus_aste) {this->vaikeus_aste = vaikeus_aste;}
         const int get_vaikeus_aste() const {return vaikeus_aste;}
 
-        //TIETOKONEEN TEKOÄLY
+        //TIETOKONEEN TEKOÄLY FUNKTIOT
         bool computer_strategy(int &x, int &y, Pelaajat *tietokone);
         bool vaaka(int &x, int &y, Pelaajat *tietokone);
         bool pysty(int &x, int &y, Pelaajat *tietokone);

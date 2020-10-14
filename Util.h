@@ -9,9 +9,9 @@
 
 #define BUFFER_LIMIT 128
 #define UPPER_X 'X'
-#define UPPER_O 'O'
+#define UPPER_O '0'
 #define LOWER_X 'x'
-#define LOWER_O 'o'
+#define LOWER_O '0'
 #define PELAAJA_TUNNISTE 'P'
 #define TIETOKONE_TUNNISTE 'T'
 #define TUNARI 1
@@ -24,5 +24,6 @@ void valitse_pelaaja_tyyppi(Pelaajat *pelaaja, Pelaajat *tietokone);
 void virhe_viesti();
 void siirto(Grid *gr, Pelaajat *pelaaja);
 int input_cordinate();
+void tulokset(Pelaajat* pelaaja, Pelaajat *tietokone);
 
 #endif

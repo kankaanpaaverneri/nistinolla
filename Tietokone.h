@@ -5,7 +5,7 @@
 #include "Grid.h"
 #include <cstdlib>
 
-class Tietokone : public Pelaajat {
+class Tietokone : public Pelaajat { //CONCRETE CLASS
     private:
         static constexpr const char tunniste = TIETOKONE_TUNNISTE;
     protected:
@@ -13,8 +13,10 @@ class Tietokone : public Pelaajat {
         bool voitto_status;
         int x, y;
     public:
+        //CONSTRUCTOR JA DESTRUCTOR
         Tietokone();
         virtual ~Tietokone() = default;
+
         virtual void alusta_pelaaja(const char tyyppi, const char vasta_tyyppi) override;
         virtual const char get_type() override {return tyyppi;}
         virtual const char get_counter_type() override {return vasta_tyyppi;}

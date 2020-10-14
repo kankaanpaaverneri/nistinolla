@@ -1,7 +1,7 @@
 #ifndef _PELAAJAT_H_
 #define _PELAAJAT_H_
 
-class Pelaajat {
+class Pelaajat { //ABSTRAKTI LUOKKA
     public:
         virtual ~Pelaajat() = default;
         virtual void alusta_pelaaja(const char tyyppi, const char vasta_tyyppi) = 0;

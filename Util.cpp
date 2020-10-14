@@ -33,13 +33,16 @@ void valitse_vaikeustaso(Grid &ref) {
             continue;
         }
         ref.set_vaikeus_aste(vaikeus_aste);
+        delete [] buffer;
     }
 }
 
 void valitse_pelaaja_tyyppi(Pelaajat *pelaaja, Pelaajat *tietokone) {
-    std::cout << "X vai O?" << std::endl;
+    std::cout << "X vai 0?" << std::endl;
 
-    while(1) {
+    //ALUSTETAAN MOLEMPIEN OLIOIDEN TYYPIT
+    //ELI OVATKO X VAI O JA MYÖS MIKÄ HEIDÄN VASTUSTAJANSA ON
+    while(true) {
         char *buffer = new char[BUFFER_LIMIT+1];
         fgets(buffer, BUFFER_LIMIT, stdin);
         if(*buffer == UPPER_X || *buffer == LOWER_X) {
@@ -59,30 +62,33 @@ void valitse_pelaaja_tyyppi(Pelaajat *pelaaja, Pelaajat *tietokone) {
 }
 
 void siirto(Grid *gr, Pelaajat *pelaaja) {
-    while(1) {
+    //TARKISTETAAN ONKO VÄLITETTY PELAAJA TIETOKONE VAI PELAAJA JA TOIMITAAN SEN MUKAISESTI
+    while(true) {
         int x {0}, y {0};
-        if(pelaaja->get_tunniste() == PELAAJA_TUNNISTE) {
+        if(pelaaja->get_tunniste() == PELAAJA_TUNNISTE) { //TÄSSÄ SUORITETAAN PELAAJAN X, Y KOORDINAATTIEN SYÖTTÖ
+            std::cout << std::endl;
             std::cout << "X arvo: ";
             x = input_cordinate();
             std::cout << "Y arvo: ";
             y = input_cordinate();
-        } else if(pelaaja->get_tunniste() == TIETOKONE_TUNNISTE) {
-            if(gr->computer_strategy(x, y, pelaaja) == false) {
-                if(gr->get_kierros_laskuri() == 0 && gr->get_vaikeus_aste() == MAHDOTON) {
+        } else if(pelaaja->get_tunniste() == TIETOKONE_TUNNISTE) { //TÄSSÄ SUORITETAAN TIETOKONEEN X, Y KORDINAATTIEN MÄÄRITTELY
+            if(gr->computer_strategy(x, y, pelaaja) == false) { //TIETOKONE ARVIOI ONKO PELAAJA TEKEMÄSSÄ SUORAA JA MÄÄRITTELEE X, Y KOORDINAATIT SEN MUKAISESTI
+                if(gr->get_kierros_laskuri() == 0 && gr->get_vaikeus_aste() == MAHDOTON) { //JOS ENSIMMÄINEN KIERROS, X, Y OVAT 2, 2
                     x = 2;
                     y = 2;
-                } else {
+                } else { //MUUSSA TAPAUKSESSA TIETOKONE ARVIOI SATUNNAISESTI X, Y KOORDINAATIT
                     x = rand() % MAX_GRID_SIZE+MIN_GRID_SIZE;
                     y = rand() % MAX_GRID_SIZE+MIN_GRID_SIZE;
                 }
             }
         }
 
-        //PÄIVITETÄÄN GRID
+        //PÄIVITETÄÄN RUUDUKKO X, Y KOORDINAATTIEN AVULLA
         if(gr->update_grid(x, y, pelaaja) == true)
             break;
         else {
             if(pelaaja->get_tunniste() == PELAAJA_TUNNISTE) {
+                //JOS KOORDINAATIT EIVÄT TÄSMÄÄ JA SIIRRON TEKI PELAAJA, TULOSTETAAN VIRHEVIESTI
                 virhe_viesti();
             }
         }
@@ -91,6 +97,7 @@ void siirto(Grid *gr, Pelaajat *pelaaja) {
 }
 
 int input_cordinate() {
+    //LUKEE KÄYTTÄJÄN SYÖTTEEN JA TARKISTAA ARVON
     int kordinaatti_arvo {0};
     while(1) {
         char *buffer = new char[BUFFER_LIMIT+1];
@@ -110,4 +117,20 @@ int input_cordinate() {
         break;
     }
     return kordinaatti_arvo;
+}
+
+void tulokset(Pelaajat* pelaaja, Pelaajat *tietokone) {
+    //PELIN PÄÄTYTTYÄ TULOSTETAAN TULOKSET
+    std::cout << std::endl;
+    if(tietokone->get_voitto_status() == true && pelaaja->get_voitto_status() == true) {
+        std::cout << "TASAPELI" << std::endl;
+    } else if(tietokone->get_voitto_status() == true) {
+        std::cout << "VOITTAJA OLI: " << tietokone->get_type() << std::endl;
+        std::cout << "Tietokone" << std::endl;
+    } else if(pelaaja->get_voitto_status() == true) {
+        std::cout << "VOITTAJA OLI: " << pelaaja->get_type() << std::endl;
+        std::cout << "Ihminen" << std::endl;
+    } else if(tietokone->get_voitto_status() == false && pelaaja->get_voitto_status() == false) {
+        std::cout << "KUMPIKAAN EI VOITTANUT" << std::endl;
+    }
 }

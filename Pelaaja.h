@@ -3,18 +3,18 @@
 #include "Pelaajat.h"
 #include "Util.h"
 #include "Grid.h"
-class Pelaaja : public Pelaajat { //CONCRETE CALSS
+class Pelaaja : public Pelaajat { //CONCRETE CLASS
     private:
         static constexpr const char tunniste = PELAAJA_TUNNISTE;
     protected:
         char tyyppi, vasta_tyyppi;
         bool voitto_status;
     public:
-        //CONSTRUCTORS AND DESTURCTOR
+        //CONSTRUCTORS JA DESTURCTOR
         Pelaaja();
         virtual ~Pelaaja() = default;
 
-        //VIRTUAL FUNCTIONS
+        //VIRTUALISET FUNKTIOT
         virtual void alusta_pelaaja(const char tyyppi, const char vasta_tyyppi) override;
         virtual const char get_type() override {return tyyppi;}
         virtual const char get_counter_type() override {return vasta_tyyppi;}
