@@ -29,7 +29,7 @@ Grid::~Grid() {
     //DESTRUCTOR Grid OLIOLLE
 }
 
-void Grid::display_grid() const { //TULOSTAA RUUDUKON PÄÄTTELLE
+void Grid::display_grid() const { //TULOSTAA RUUDUKON PÄÄTTEELLE
     for(int i {MIN_GRID_SIZE}; i < MAX_GRID_SIZE; i++) {
         std::cout << std::endl;
         for(int j {MIN_GRID_SIZE}; j < MAX_GRID_SIZE; j++) {

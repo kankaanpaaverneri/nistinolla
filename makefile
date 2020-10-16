@@ -1,10 +1,12 @@
 CC = g++
 CFLAGS = -c -std=c++17 -g -Wall
+objects = main.o Pelaajat.o Pelaaja.o \
+		Tietokone.o Util.o Grid.o
 
 all: compile clean
 
-compile: main.o Pelaajat.o Pelaaja.o Tietokone.o Util.o Grid.o
-	${CC} main.o Pelaajat.o Pelaaja.o Tietokone.o Util.o Grid.o -o nistinolla
+compile: ${objects}
+	${CC} ${objects} -o nistinolla
 
 main.o: main.cpp
 	${CC} ${CFLAGS} main.cpp
@@ -25,4 +27,4 @@ Grid.o: Grid.h Grid.cpp
 	${CC} ${CFLAGS} Grid.h Grid.cpp
 
 clean:
-	rm *.o *.gch
+	rm ${objects} *.gch
