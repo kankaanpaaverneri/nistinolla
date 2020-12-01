@@ -6,7 +6,7 @@
 
 #define MAX_GRID_SIZE 4
 #define MIN_GRID_SIZE 0
-#define EMPTY_SPOT_ON_THE_GRID '#'
+#define EMPTY_SPOT_ON_THE_GRID ' '
 #define SUORA 3
 #define MELKEIN_SUORA 2
 #define EI_SUORAA 0
